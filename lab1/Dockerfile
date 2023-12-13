@@ -6,4 +6,4 @@ RUN apk update && apk upgrade && apk add bash
 
 COPY . ./workdir
 
-CMD ["./setup.py"]
+CMD ["./setup.sh"]
