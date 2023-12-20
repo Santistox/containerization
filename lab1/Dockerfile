@@ -10,18 +10,9 @@ RUN apk update && \
     apk upgrade && \
     apk add bash nginx openrc
 
-RUN mv workdir/nginx.conf /etc/nginx/nginx.conf
+RUN apk -v cache clean
 
-# RUN apk update && \
-#     apk upgrade && \
-#     apk add bash nginx && \
-#     adduser -D -g 'www' www && \
-#     mkdir /www && \
-#     chown -R www:www /var/lib/nginx && \
-#     chown -R www:www /www && \
-#     mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig && \
-#     apk add openrc --no-cache && \
-#     sh workdir/setup.sh
+RUN mv workdir/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80/tcp
 
