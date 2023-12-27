@@ -4,10 +4,10 @@ FROM openjdk:11.0.11-jre-slim-buster as builder
 # Add Dependencies for PySpark
 RUN apt-get update && apt-get install -y curl vim wget software-properties-common ssh net-tools ca-certificates python3 python3-pip python3-numpy python3-matplotlib python3-scipy python3-pandas python3-simpy
 
+# user python3 as python
 RUN update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1
 
-# Fix the value of PYTHONHASHSEED
-# Note: this is needed when you use Python 3.3 or greater
+# setup versions and workspace
 ENV SPARK_VERSION=3.3.2 \
 HADOOP_VERSION=3 \
 SPARK_HOME=/opt/spark \
@@ -19,8 +19,7 @@ RUN wget --no-verbose -O apache-spark.tgz "https://archive.apache.org/dist/spark
 && tar -xf apache-spark.tgz -C /opt/spark --strip-components=1 \
 && rm apache-spark.tgz
 
-
-# Apache spark environment
+# Setup spark environment 
 FROM builder as apache-spark
 
 WORKDIR /opt/spark
